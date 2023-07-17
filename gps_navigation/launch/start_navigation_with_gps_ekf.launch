@@ -1,0 +1,30 @@
+<launch>
+
+    <!-- Launch Gazebo with the maze -->
+    <include file="/home/pete51/catkin_ws/src/cpr_gazebo/cpr_office_gazebo/launch/office_world.launch">
+           <arg name="platform" value="jackal"/>
+    </include>
+    
+    <!--- gps to odom conversion-->
+    <include file="$(find gps_navigation)/launch/start_navsat.launch" />
+    
+    <!--- ekf for map to odom config-->
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_with_gps" >
+    <rosparam command="load" file="$(find gps_navigation)/config/robot_localization_with_gps.yaml" />
+    </node>
+
+    <!-- Launch map -->
+    <include file="$(find gps_navigation)/launch/map_server.launch" />
+    
+    <!-- Launch move base -->
+    <include file="$(find gps_navigation)/launch/with_map_move_base.launch" />
+
+    <!-- Launch Point Cloud tools to filter the original Velodyne data and feed into gmapping -->
+    <include file="$(find liptor_navigation)/launch/include/pointcloud_filter.launch" />
+
+    <!-- Launch rviz -->
+    <include file="$(find liptor_navigation)/launch/include/view_robot.launch" >
+        <arg name="config" value="localization" />
+    </include>
+
+</launch>

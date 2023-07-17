@@ -1,0 +1,20 @@
+<launch>
+    <!--- real environment simulation-->
+    <include file="/home/pete51/catkin_ws/src/cpr_gazebo/cpr_office_gazebo/launch/office_world.launch">
+        <arg name="platform" value="jackal"/>
+    </include>
+    
+    <!--- launching amcl-->
+    <include file="$(find jackal_navigation)/launch/amcl_demo.launch">
+      <arg name="map_file" value="/home/pete51/catkin_ws/map1.yaml"/>
+    </include>
+
+    <!--- launching Rviz-->
+    <include file="$(find jackal_viz)/launch/view_robot.launch">
+        <arg name="config" value="localization" />
+    </include>
+
+    <!--- marking coordinates
+    <node pkg="liptor_navigation" type="move_base_square" name="move_base_square"/>
+    -->
+</launch>

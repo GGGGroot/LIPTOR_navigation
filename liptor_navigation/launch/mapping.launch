@@ -1,0 +1,18 @@
+<launch>
+
+    <!-- Launch Gazebo with the maze -->
+    <include file="/home/pete51/catkin_ws/src/cpr_gazebo/cpr_office_gazebo/launch/office_world.launch">
+           <arg name="platform" value="jackal"/>
+    </include>
+
+    <!-- Launch rviz -->
+    <include file="$(find liptor_navigation)/launch/include/view_robot.launch" />
+
+    <!-- Launch Point Cloud tools to filter the original Velodyne data and feed into gmapping -->
+    <include file="$(find liptor_navigation)/launch/include/pointcloud_filter.launch" />
+
+    <!-- Launch gmapping and move_base for SLAM and navigation -->
+    <include file="$(find liptor_navigation)/launch/include/gmapping.launch" />
+    <include file="$(find liptor_navigation)/launch/include/move_base.launch" />
+
+</launch>
