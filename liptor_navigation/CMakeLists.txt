@@ -18,8 +18,7 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   std_msgs
   pcl_conversions
-  pcl_ros
-)
+  pcl_ros)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -235,4 +234,3 @@ target_link_libraries(point ${catkin_LIBRARIES})
 
 add_executable(lidar src/lidar.cpp)
 target_link_libraries(lidar ${catkin_LIBRARIES})
-s
